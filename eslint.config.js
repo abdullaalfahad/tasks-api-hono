@@ -1,30 +1,29 @@
-// eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
-// Type of the project. 'lib' for libraries, the default is 'app'
   type: 'lib',
 
-  // Enable stylistic formatting rules
-  // stylistic: true,
+  typescript: true,
+  vue: false,
 
-  // Or customize the stylistic rules
+  formatter: true,
+
   stylistic: {
-    indent: 2, // 4, or 'tab'
-    quotes: 'single', // or 'double'
+    indent: 2,
+    quotes: 'single',
+    semi: true,
+    trailingComma: 'all',
+    arrowParens: 'always',
   },
 
-  // TypeScript and Vue are autodetected, you can also explicitly enable them:
-  typescript: true,
-  vue: true,
-
-  // Disable jsonc and yaml support
   jsonc: false,
   yaml: false,
 
-  // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
   ignores: [
+    '**/dist',
+    '**/node_modules',
     '**/fixtures',
-    // ...globs
+    '**/coverage',
+    '**/.output',
   ],
-})
+});
