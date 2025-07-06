@@ -1,6 +1,7 @@
-import { serve } from '@hono/node-server';
-import env from '../env.js';
-import app from './app.js';
+import { serve } from "@hono/node-server";
+
+import env from "../env.js";
+import app from "./app.js";
 
 const port = env.PORT || 3000;
 

@@ -1,29 +1,27 @@
-import antfu from '@antfu/eslint-config';
+import antfu from "@antfu/eslint-config";
 
 export default antfu({
-  type: 'lib',
-
+  type: "app",
   typescript: true,
-  vue: false,
-
-  formatter: true,
-
+  formatters: true,
   stylistic: {
     indent: 2,
-    quotes: 'single',
     semi: true,
-    trailingComma: 'all',
-    arrowParens: 'always',
+    quotes: "double",
   },
-
-  jsonc: false,
-  yaml: false,
-
-  ignores: [
-    '**/dist',
-    '**/node_modules',
-    '**/fixtures',
-    '**/coverage',
-    '**/.output',
-  ],
+  ignores: ["**/migrations/*"],
+}, {
+  rules: {
+    "no-console": ["warn"],
+    "antfu/no-top-level-await": ["off"],
+    "node/prefer-global/process": ["off"],
+    "node/no-process-env": ["error"],
+    "perfectionist/sort-imports": ["error", {
+      tsconfigRootDir: ".",
+    }],
+    "unicorn/filename-case": ["error", {
+      case: "kebabCase",
+      ignore: ["README.md"],
+    }],
+  },
 });
