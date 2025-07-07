@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "paths": {
       "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
+    "allowImportingTsExtensions": true,
     "strict": true,
+    "noEmit": true,
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
