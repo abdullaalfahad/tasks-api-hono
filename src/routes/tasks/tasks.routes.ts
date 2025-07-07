@@ -1,4 +1,4 @@
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
 import * as HTTPStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 
@@ -31,5 +31,21 @@ export const createOne = createRoute({
   },
 });
 
+export const getOne = createRoute({
+  tags: ["Tasks"],
+  path: "/tasks/:id",
+  request: {
+    params: z.object({ id: z.string() }),
+  },
+  method: "get",
+  responses: {
+    200: jsonContent(
+      taskSchema,
+      "Get task",
+    ),
+  },
+});
+
 export type ListRoute = typeof list;
 export type CreateRoute = typeof createOne;
+export type GetOne = typeof getOne;
