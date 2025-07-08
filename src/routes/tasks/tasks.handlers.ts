@@ -1,3 +1,5 @@
+import * as HTTPStatusCodes from "stoker/http-status-codes";
+
 import type { AppRouteHandler } from "@/lib/types.js";
 
 import db from "@/db/index.ts";
@@ -16,15 +18,19 @@ export const createOne: AppRouteHandler<CreateRoute> = async (c) => {
 
   const createdTask = await db.insert(tasksTable).values(task).returning();
 
-  return c.json(createdTask[0]);
+  return c.json(createdTask[0], 200);
 };
 
 export const getOne: AppRouteHandler<GetOne> = async (c) => {
   const { id } = c.req.valid("param");
 
   const task = await db.query.tasksTable.findFirst({ where(fields, operators) {
-    return operators.eq(fields.id, id);
+    return operators.eq(fields.id, Number(id));
   } });
 
-  return c.json(task);
+  if (!task) {
+    return c.json({ message: "task not found" }, HTTPStatusCodes.NOT_FOUND);
+  }
+
+  return c.json(task, HTTPStatusCodes.OK);
 };

@@ -1,9 +1,8 @@
-// src/db/zod.ts
 import { z } from "zod";
 
 export const taskSchema = z.object({
   id: z.number(),
-  name: z.string(),
+  name: z.string().min(1).max(500),
   done: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string(),
