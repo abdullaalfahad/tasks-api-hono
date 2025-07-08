@@ -52,6 +52,49 @@ export const getOne = createRoute({
   },
 });
 
+export const patchOne = createRoute({
+  tags: ["Tasks"],
+  path: "/tasks/:id",
+  request: {
+    params: IdParamsSchema,
+    body: jsonContentRequired(taskCreateSchema, "Update task"),
+  },
+  method: "patch",
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      taskSchema,
+      "Update task",
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(notFoundSchema, "Task not found"),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(createErrorSchema(IdParamsSchema).or(createErrorSchema(taskCreateSchema)), "The validation error(s)"),
+  },
+});
+
+export const removeOne = createRoute({
+  tags: ["Tasks"],
+  path: "/tasks/{id}",
+  method: "delete",
+  request: {
+    params: IdParamsSchema,
+  },
+
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: {
+      description: "Task deleted",
+    },
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      notFoundSchema,
+      "Task not found",
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      "Invalid id error",
+    ),
+  },
+});
+
 export type ListRoute = typeof list;
 export type CreateRoute = typeof createOne;
-export type GetOne = typeof getOne;
+export type GetOneRoute = typeof getOne;
+export type PatchrRoute = typeof patchOne;
+export type RemoveRoute = typeof removeOne;
